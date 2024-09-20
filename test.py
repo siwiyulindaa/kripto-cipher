@@ -114,7 +114,7 @@ def hill_encrypt(plaintext, key):
     plaintext = plaintext.upper().replace(' ', '')
     
     if len(plaintext) % 2 != 0:
-        plaintext += 'X'  # Tambahkan 'X' jika panjang plaintext ganjil
+        plaintext += 'X'  
 
     ciphertext = ''
     for i in range(0, len(plaintext), 2):
@@ -128,13 +128,10 @@ def hill_decrypt(ciphertext, key):
     key_matrix = np.array(key).reshape(2, 2)
     determinant = int(np.round(np.linalg.det(key_matrix))) % 26
     
-    # Mencari invers determinan modulo 26
     inv_determinant = pow(determinant, -1, 26)
     
-    # Membuat matriks adjugate
     adjugate_matrix = np.round(determinant * np.linalg.inv(key_matrix)).astype(int) % 26
 
-    # Menghitung matriks invers kunci
     inv_key_matrix = (inv_determinant * adjugate_matrix) % 26
 
     plaintext = ''
@@ -143,7 +140,6 @@ def hill_decrypt(ciphertext, key):
         decrypted_vector = np.dot(inv_key_matrix, vector) % 26
         plaintext += chr(int(decrypted_vector[0]) + 65) + chr(int(decrypted_vector[1]) + 65)
 
-    # Jika 'X' ditambahkan saat enkripsi, hapus hanya jika ada di akhir
     if plaintext.endswith('X'):
         plaintext = plaintext[:-1]
 
@@ -190,7 +186,7 @@ def encrypt_action():
         elif cipher == "Playfair":
             result = playfair_encrypt(message, key)
         elif cipher == "Hill":
-            key_matrix = [3, 3, 2, 5]  # Contoh kunci untuk Hill Cipher
+            key_matrix = [3, 3, 2, 5]  
             result = hill_encrypt(message, key_matrix)
         else:
             result = "Invalid cipher choice"
@@ -208,7 +204,7 @@ def decrypt_action():
         elif cipher == "Playfair":
             result = playfair_decrypt(message, key)
         elif cipher == "Hill":
-            key_matrix = [3, 3, 2, 5]  # Contoh kunci untuk Hill Cipher
+            key_matrix = [3, 3, 2, 5] 
             result = hill_decrypt(message, key_matrix)
         else:
             result = "Invalid cipher choice"
@@ -228,14 +224,13 @@ def create_gui():
     root = tk.Tk()
     root.title("Crypto Tool")
     root.geometry("600x300")
-    root.config(bg="#e6f2ff")  # Latar belakang biru muda
+    root.config(bg="#e6f2ff")  
 
-    # Mengatur font dan warna
-    font_style = ("Helvetica", 12, "bold")  # Menggunakan font Helvetica yang elegan
+    font_style = ("Helvetica", 12, "bold")  
     label_color = "#ffffff"
-    button_color = "#0052cc"  # Warna biru tua untuk tombol
-    input_bg = "#ffffff"  # Warna input putih
-    input_fg = "#000000"  # Warna teks hitam
+    button_color = "#0052cc"  
+    input_bg = "#ffffff"  
+    input_fg = "#000000"  
 
     # Label dan input untuk pesan
     tk.Label(root, text="Input Message:", font=font_style, bg="#e6f2ff", fg=input_fg).grid(row=0, column=0, pady=10, padx=10)
@@ -252,7 +247,7 @@ def create_gui():
 
     # Opsi untuk memilih cipher
     cipher_var = tk.StringVar(root)
-    cipher_var.set("Vigenere")  # Default value
+    cipher_var.set("Vigenere")  
     tk.Label(root, text="Choose Cipher:", font=font_style, bg="#e6f2ff", fg=input_fg).grid(row=2, column=0, pady=10, padx=10)
     cipher_menu = tk.OptionMenu(root, cipher_var, "Vigenere", "Playfair", "Hill")
     cipher_menu.config(font=font_style, bg=input_bg, fg=input_fg)
