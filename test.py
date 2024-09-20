@@ -227,38 +227,47 @@ def create_gui():
 
     root = tk.Tk()
     root.title("Crypto Tool")
+    root.geometry("600x300")
+    root.config(bg="#e6f2ff")  # Latar belakang biru muda
+
+    # Mengatur font dan warna
+    font_style = ("Helvetica", 12, "bold")  # Menggunakan font Helvetica yang elegan
+    label_color = "#ffffff"
+    button_color = "#0052cc"  # Warna biru tua untuk tombol
+    input_bg = "#ffffff"  # Warna input putih
+    input_fg = "#000000"  # Warna teks hitam
 
     # Label dan input untuk pesan
-    tk.Label(root, text="Input Message:").grid(row=0, column=0)
-    message_input = tk.Entry(root, width=50)
-    message_input.grid(row=0, column=1)
+    tk.Label(root, text="Input Message:", font=font_style, bg="#e6f2ff", fg=input_fg).grid(row=0, column=0, pady=10, padx=10)
+    message_input = tk.Entry(root, width=50, bg=input_bg, fg=input_fg, font=font_style)
+    message_input.grid(row=0, column=1, pady=10)
 
     # Tombol untuk upload file
-    tk.Button(root, text="Upload File", command=upload_file_action).grid(row=0, column=2)
+    tk.Button(root, text="Upload File", command=upload_file_action, bg=button_color, fg="#ffffff", font=font_style).grid(row=0, column=2, padx=10)
 
     # Label dan input untuk kunci
-    tk.Label(root, text="Key:").grid(row=1, column=0)
-    key_input = tk.Entry(root, width=50, show='')  # Menambahkan show='' untuk menyembunyikan input
-    key_input.grid(row=1, column=1)
-
+    tk.Label(root, text="Key:", font=font_style, bg="#e6f2ff", fg=input_fg).grid(row=1, column=0, pady=10, padx=10)
+    key_input = tk.Entry(root, width=50, show='', bg=input_bg, fg=input_fg, font=font_style)
+    key_input.grid(row=1, column=1, pady=10)
 
     # Opsi untuk memilih cipher
     cipher_var = tk.StringVar(root)
     cipher_var.set("Vigenere")  # Default value
-    tk.Label(root, text="Choose Cipher:").grid(row=2, column=0)
+    tk.Label(root, text="Choose Cipher:", font=font_style, bg="#e6f2ff", fg=input_fg).grid(row=2, column=0, pady=10, padx=10)
     cipher_menu = tk.OptionMenu(root, cipher_var, "Vigenere", "Playfair", "Hill")
-    cipher_menu.grid(row=2, column=1)
+    cipher_menu.config(font=font_style, bg=input_bg, fg=input_fg)
+    cipher_menu.grid(row=2, column=1, pady=10)
 
     # Tombol enkripsi dan dekripsi
-    tk.Button(root, text="Encrypt", command=encrypt_action).grid(row=3, column=0)
-    tk.Button(root, text="Decrypt", command=decrypt_action).grid(row=3, column=1)
+    tk.Button(root, text="Encrypt", command=encrypt_action, bg=button_color, fg="#ffffff", font=font_style).grid(row=3, column=0, pady=10)
+    tk.Button(root, text="Decrypt", command=decrypt_action, bg=button_color, fg="#ffffff", font=font_style).grid(row=3, column=1, pady=10)
 
     # Tombol untuk menyimpan hasil ke file
-    tk.Button(root, text="Save to File", command=lambda: save_result_to_file(result_label.cget("text")[8:])).grid(row=3, column=2)
+    tk.Button(root, text="Save to File", command=lambda: save_result_to_file(result_label.cget("text")[8:]), bg=button_color, fg="#ffffff", font=font_style).grid(row=3, column=2, padx=10)
 
     # Label untuk menampilkan hasil
-    result_label = tk.Label(root, text="Result: ")
-    result_label.grid(row=4, column=0, columnspan=3)
+    result_label = tk.Label(root, text="Result: ", font=font_style, bg="#e6f2ff", fg=input_fg)
+    result_label.grid(row=4, column=0, columnspan=3, pady=20)
 
     root.mainloop()
 
